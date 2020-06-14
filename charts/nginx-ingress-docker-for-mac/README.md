@@ -25,3 +25,5 @@ helm install --generate-name georgedriver/nginx-ingress-docker-for-mac
 ## Configuration
 
 The following table lists the configurable parameters of the chart and the default values.
+
+
