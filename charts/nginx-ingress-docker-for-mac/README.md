@@ -2,7 +2,7 @@ nginx-ingress-docker-for-mac
 ============================
 Nginx ingress for Kubernetes on Docker for mac.
 
-Current chart version is `0.1.0`
+Current chart version is `0.1.1`
 
 Source code can be found [here](https://github.com/georgedriver/helm-charts)
 
