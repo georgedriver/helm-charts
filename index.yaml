@@ -1,5 +1,23 @@
 apiVersion: v1
 entries:
+  nginx-ingress-docker-for-mac:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2020-06-14T07:35:10.033974741Z"
+    description: Nginx ingress for Kubernetes on Docker for mac.
+    digest: b39fe3f2cf938d57e6f0e9fd8deee489d9005eaa7ba41519429cd5994e141d3d
+    home: https://github.com/georgedriver/helm-charts
+    keywords:
+    - ingress
+    - docker-for-mac
+    maintainers:
+    - name: George
+    name: nginx-ingress-docker-for-mac
+    sources:
+    - https://github.com/georgedriver/helm-charts
+    urls:
+    - https://github.com/georgedriver/helm-charts/releases/download/nginx-ingress-docker-for-mac-0.1.0/nginx-ingress-docker-for-mac-0.1.0.tgz
+    version: 0.1.0
   renovate:
   - apiVersion: v1
     appVersion: 19.239.11
