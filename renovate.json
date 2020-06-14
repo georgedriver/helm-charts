@@ -1,0 +1,42 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base", ":masterIssue"],
+  "prCreation": "not-pending",
+  "regexManagers": [
+    {
+      "fileMatch": ["(^|/)Chart.yaml$"],
+      "matchStrings": ["appVersion: '(?<currentValue>.*?)'\n"],
+      "depNameTemplate": "renovate/renovate",
+      "datasourceTemplate": "docker"
+    },
+    {
+      "fileMatch": ["(^|/)Chart.yaml$"],
+      "matchStrings": ["version: '(?<currentValue>.*?)'\n"],
+      "depNameTemplate": "renovate/renovate",
+      "datasourceTemplate": "docker"
+    },
+    {
+      "fileMatch": ["(^|/)README.md$"],
+      "matchStrings": ["Current chart version is `(?<currentValue>.*?)`\n"],
+      "depNameTemplate": "renovate/renovate",
+      "datasourceTemplate": "docker"
+    },
+    {
+      "fileMatch": ["(^|/)README.md$"],
+      "matchStrings": [
+        "\\| image.tag \\| string \\| `\"(?<currentValue>.*?)\"` \\|  \\|\n"
+      ],
+      "depNameTemplate": "renovate/renovate",
+      "datasourceTemplate": "docker"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Automerge renovate minor and patch updates",
+      "packageNames": ["renovate/renovate"],
+      "updateTypes": ["minor", "patch"],
+      "automergeType": "branch",
+      "automerge": true
+    }
+  ]
+}
