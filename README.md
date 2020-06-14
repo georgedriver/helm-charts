@@ -6,7 +6,7 @@ This repository hosts Renovate's [Helm](https://helm.sh) charts. Chart documenta
 
 ## Add Helm repository
 
-```bash
+```shell
 helm repo add georgedriver https://georgedriver.github.io/helm-charts
 helm repo update
 ```

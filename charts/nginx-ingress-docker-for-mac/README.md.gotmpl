@@ -1,0 +1,27 @@
+{{ template "chart.header" . }}
+{{ template "chart.description" . }}
+
+{{ template "chart.versionLine" . }}
+
+{{ template "chart.sourceLinkLine" . }}
+
+## Installation
+
+### Add Helm repository
+
+```shell
+helm repo add georgedriver https://georgedriver.github.io/helm-charts
+helm repo update
+```
+
+## Installation
+
+```bash
+helm install --generate-name georgedriver/{{ template "chart.header" . }}
+```
+
+## Configuration
+
+The following table lists the configurable parameters of the chart and the default values.
+
+{{ template "chart.valuesSection" . }}
