@@ -1,0 +1,14 @@
+# Default values for alidns-webhook.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# domain -- The domain we're using for alidns-webhook
+domain: "test.com"
+
+# email -- A validated email address for cert-manager
+email: "test@test.com"
+
+# alicloud_access_key -- ALICLOUD_ACCESS_KEY to handle the Alicloud DNS records
+alicloud_access_key: ""
+# alicloud_secret_key -- ALICLOUD_SECRET_KEY to handle the Alicloud DNS records
+alicloud_secret_key: ""
