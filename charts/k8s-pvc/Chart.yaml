@@ -1,8 +1,8 @@
-apiVersion: v2
+apiVersion: v1
 name: k8s-pvc
 description: A Helm chart for Creating pv/pvc on docker-for-mac
 type: application
-version: 0.1.0
+version: 0.1.1
 appVersion: 1.16.0
 home: https://github.com/georgedriver/helm-charts
 keywords:
