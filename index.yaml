@@ -19,6 +19,26 @@ entries:
     urls:
     - https://github.com/georgedriver/helm-charts/releases/download/alidns-webhook-0.1.0/alidns-webhook-0.1.0.tgz
     version: 0.1.0
+  k8s-pvc:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-06-20T02:55:28.644191724Z"
+    description: A Helm chart for Creating pv/pvc on docker-for-mac
+    digest: de6e36d1c6065ed97a19cee9f55c551ef1ad5dc0f5c8799f19ec57f6006984ef
+    home: https://github.com/georgedriver/helm-charts
+    keywords:
+    - docker
+    - hostpath
+    - pv
+    maintainers:
+    - name: George
+    name: k8s-pvc
+    sources:
+    - https://github.com/georgedriver/helm-charts
+    type: application
+    urls:
+    - https://github.com/georgedriver/helm-charts/releases/download/k8s-pvc-0.1.0/k8s-pvc-0.1.0.tgz
+    version: 0.1.0
   nginx-ingress-docker-for-mac:
   - apiVersion: v1
     appVersion: "1.0"
