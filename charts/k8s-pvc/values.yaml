@@ -1,0 +1,12 @@
+# Default values for k8s-pvc.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# name -- name for pv/pvc
+name: "test"
+# storageClassName -- storageClassName for pv/pvc
+storageClassName: "manual"
+# storage -- storage size for pv/pvc
+storage: 256Mi
+# hostPath -- hostPath that docker for mac used to persistence the data
+hostPath: "/tmp"

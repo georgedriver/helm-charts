@@ -1,0 +1,29 @@
+{{ template "chart.header" . }}
+{{ template "chart.description" . }}
+
+{{ template "chart.versionLine" . }}
+
+{{ template "chart.sourceLinkLine" . }}
+
+## Installation
+
+### Add Helm repository
+
+```shell
+helm repo add georgedriver https://georgedriver.github.io/helm-charts
+helm repo update
+```
+
+```shell
+helm install --generate-name k8s-pvc
+```
+
+## Configuration
+
+The following table lists the configurable parameters of the chart and the default values.
+
+{{ template "chart.valuesSection" . }}
+
+## Ref
+
+- [[Kubernetes] Custom Data on Persistant Volume lost on Mac restart](https://github.com/docker/for-mac/issues/4019#issuecomment-575579113)
