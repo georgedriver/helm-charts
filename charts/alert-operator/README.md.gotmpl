@@ -1,10 +1,9 @@
-alert-operator
-==============
-A k8s prometheus alert-operator chart
+{{ template "chart.header" . }}
+{{ template "chart.description" . }}
 
-Current chart version is `0.0.1`
+{{ template "chart.versionLine" . }}
 
-Source code can be found [here](https://github.com/georgedriver/helm-charts)
+{{ template "chart.sourceLinkLine" . }}
 
 ## Installation
 
@@ -30,23 +29,7 @@ The chart will provide the following resources:
 
 The following table lists the configurable parameters of the chart and the default values.
 
-## Chart Values
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| affinity | object | `{}` |  |
-| fullnameOverride | string | `""` |  |
-| image.pullPolicy | string | `"Always"` |  |
-| image.repository | string | `"georgedriver/alert-operator"` |  |
-| image.tag | string | `"master"` |  |
-| monitoring.alerting.enable | bool | `false` |  |
-| monitoring.enabled | bool | `false` |  |
-| nameOverride | string | `""` |  |
-| nodeSelector | object | `{}` |  |
-| replicaCount | int | `1` |  |
-| resources | object | `{}` |  |
-| service.port | int | `60000` |  |
-| tolerations | list | `[]` |  |
+{{ template "chart.valuesSection" . }}
 
 ## Monitoring
 

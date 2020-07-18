@@ -1,6 +1,6 @@
-alert-operator
-==============
-A k8s prometheus alert-operator chart
+k8s-alert-receiver
+==================
+A Helm creates k8s CR for alertmanager recevier (using alert-operator) on k8s
 
 Current chart version is `0.0.1`
 
@@ -19,12 +19,14 @@ helm repo update
 helm install --generate-name alert-operator
 ```
 
+
 ## Chart Content
-The chart will provide the following resources:
-1. Alert Operator CRD's resource (installed first using helm CRD hook)
-2. Alert operator supporting service-account, cluster-role and cluster-role-binding resources.
-3. Alert-operator deployment
-4. Alert-operator service,  ServiceMonitor & monitoring resources. *** currently disabled by default as prometheus metrics are not yet supported ***
+The chart will create a CR with 2 receivers (based on the provided values):
+1. Slack receiver (if slace webhook_url was provided).
+2. pagerduty receiver (if pagerduty service_key was provided)
+
+## k8s-alert-receiver Configuration
+The following values are set in this chart values.yaml, some overwrite the sub-chart values
 
 ## Configuration
 
@@ -34,19 +36,14 @@ The following table lists the configurable parameters of the chart and the defau
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| affinity | object | `{}` |  |
-| fullnameOverride | string | `""` |  |
-| image.pullPolicy | string | `"Always"` |  |
-| image.repository | string | `"georgedriver/alert-operator"` |  |
-| image.tag | string | `"master"` |  |
-| monitoring.alerting.enable | bool | `false` |  |
-| monitoring.enabled | bool | `false` |  |
-| nameOverride | string | `""` |  |
-| nodeSelector | object | `{}` |  |
-| replicaCount | int | `1` |  |
-| resources | object | `{}` |  |
-| service.port | int | `60000` |  |
-| tolerations | list | `[]` |  |
+| enable_default_router | bool | `true` |  |
+| pagerduty.name | string | `""` |  |
+| pagerduty.service_key | string | `""` |  |
+| slack.channel | string | `""` |  |
+| slack.name | string | `"null"` |  |
+| slack.webhook_url | string | `""` |  |
+| target_configuration.name | string | `"alertmanager"` |  |
+| target_configuration.namespace | string | `"system-monitoring"` |  |
 
 ## Monitoring
 
