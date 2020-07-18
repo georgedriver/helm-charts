@@ -1,5 +1,26 @@
 apiVersion: v1
 entries:
+  alert-operator:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2020-07-18T08:54:13.749475037Z"
+    description: A k8s prometheus alert-operator chart
+    digest: 56d99f830ab0cf4054305027667a6e19ccb8996ccd494ab145fc8472c5a79971
+    home: https://github.com/georgedriver/helm-charts
+    keywords:
+    - alert
+    - prometheus
+    - operator
+    maintainers:
+    - name: George
+    name: alert-operator
+    sources:
+    - https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources
+    - https://github.com/operator-framework/operator-sdk
+    - https://github.com/georgedriver/helm-charts
+    urls:
+    - https://github.com/georgedriver/helm-charts/releases/download/alert-operator-0.0.1/alert-operator-0.0.1.tgz
+    version: 0.0.1
   alidns-webhook:
   - apiVersion: v1
     appVersion: "1.0"
