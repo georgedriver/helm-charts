@@ -2,7 +2,7 @@ alert-operator
 ==============
 A k8s prometheus alert-operator chart
 
-Current chart version is `0.0.1`
+Current chart version is `0.0.2`
 
 Source code can be found [here](https://github.com/georgedriver/helm-charts)
 
