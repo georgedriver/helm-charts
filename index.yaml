@@ -63,6 +63,25 @@ entries:
   k8s-alert-receiver:
   - apiVersion: v1
     appVersion: "1.0"
+    created: "2021-03-24T12:28:42.90337535Z"
+    description: A Helm creates k8s CR for alertmanager recevier (using alert-operator)
+      on k8s
+    digest: fab34c7a056045d6259bd8f84adf9bb21e6d693d80ddecd91d120ffe50110945
+    home: https://github.com/georgedriver/helm-charts
+    keywords:
+    - alert
+    - prometheus
+    - receiver
+    maintainers:
+    - name: George
+    name: k8s-alert-receiver
+    sources:
+    - https://github.com/georgedriver/helm-charts
+    urls:
+    - https://github.com/georgedriver/helm-charts/releases/download/k8s-alert-receiver-0.0.3/k8s-alert-receiver-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v1
+    appVersion: "1.0"
     created: "2021-03-24T12:23:08.940004258Z"
     description: A Helm creates k8s CR for alertmanager recevier (using alert-operator)
       on k8s
@@ -195,4 +214,4 @@ entries:
     urls:
     - https://github.com/georgedriver/helm-charts/releases/download/renovate-19.239.11/renovate-19.239.11.tgz
     version: 19.239.11
-generated: "2021-03-24T12:23:08.940021458Z"
+generated: "2021-03-24T12:28:42.903398752Z"
