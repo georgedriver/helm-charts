@@ -16,7 +16,7 @@ spec:
     namespace: {{ required "Please specify the alertmanager namespace for selectors" .Values.target_configuration.namespace }}
   routes:
       # receiver name
-    {{- if (.Values.slack.webhook_url) and (.Values.slack.name) }}
+    {{- if and (.Values.slack.webhook_url) (.Values.slack.name) }}
     - receiver: {{ .Values.slack.name }}
     {{- else }}
     - receiver: 'null'
@@ -26,7 +26,7 @@ spec:
         namespace: {{ .Release.Namespace }}
       match_re:
         severity: .*
-      {{- if (.Values.pagerduty.service_key) and (.Values.pagerduty.name) }}
+      {{- if and (.Values.pagerduty.service_key) (.Values.pagerduty.name) }}
       continue: true
       routes:
         # db_multi_alert sends alert to pagerduty and slack
