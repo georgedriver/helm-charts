@@ -2,7 +2,7 @@ k8s-pvc
 =======
 A Helm chart for Creating pv/pvc on docker-for-mac
 
-Current chart version is `0.1.0`
+Current chart version is `25.41.3`
 
 Source code can be found [here](https://github.com/georgedriver/helm-charts)
 
