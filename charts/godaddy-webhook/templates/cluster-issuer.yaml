@@ -15,13 +15,12 @@ spec:
     solvers:
     - dns01:
         webhook:
+          config:
+            apiKeySecretRef:
+              name: godaddy-secret
+              key: key
+              secret: secret
+            production: true
+            ttl: 600
           groupName: cert-manager.io
           solverName: godaddy
-          config:
-            region: ""
-            accessKeySecretRef:
-              name: godaddy-secret
-              key: access-key
-            secretKeySecretRef:
-              name: godaddy-secret
-              key: secret-key
