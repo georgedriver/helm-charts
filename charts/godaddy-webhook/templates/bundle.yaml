@@ -1,0 +1,272 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: godaddy-webhook
+  namespace: cert-manager
+  labels:
+    app: godaddy-webhook
+
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: Role
+metadata:
+  name: godaddy-webhook
+  namespace: cert-manager
+  labels:
+    app: godaddy-webhook
+rules:
+  - apiGroups:
+      - ''
+    resources:
+      - 'secrets'
+    verbs:
+      - 'get'
+
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: godaddy-webhook
+  namespace: cert-manager
+  labels:
+    app: godaddy-webhook
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: godaddy-webhook
+subjects:
+  - apiGroup: ""
+    kind: ServiceAccount
+    name: godaddy-webhook
+    namespace: cert-manager
+
+---
+# Grant the webhook permission to read the ConfigMap containing the Kubernetes
+# apiserver's requestheader-ca-certificate.
+# This ConfigMap is automatically created by the Kubernetes apiserver.
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: godaddy-webhook:webhook-authentication-reader
+  namespace: kube-system
+  labels:
+    app: godaddy-webhook
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: extension-apiserver-authentication-reader
+subjects:
+  - apiGroup: ""
+    kind: ServiceAccount
+    name: godaddy-webhook
+    namespace: cert-manager
+---
+# apiserver gets the auth-delegator role to delegate auth decisions to
+# the core apiserver
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: godaddy-webhook:auth-delegator
+  namespace: cert-manager
+  labels:
+    app: godaddy-webhook
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+  - apiGroup: ""
+    kind: ServiceAccount
+    name: godaddy-webhook
+    namespace: cert-manager
+---
+# Grant cert-manager permission to validate using our apiserver
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: godaddy-webhook:domain-solver
+  labels:
+    app: godaddy-webhook
+rules:
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - '*'
+    verbs:
+      - 'create'
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: godaddy-webhook:domain-solver
+  labels:
+    app: godaddy-webhook
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: godaddy-webhook:domain-solver
+subjects:
+  - apiGroup: ""
+    kind: ServiceAccount
+    name: cert-manager
+    namespace: cert-manager
+
+---
+# Source: godaddy-webhook/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: godaddy-webhook
+  namespace: cert-manager
+  labels:
+    app: godaddy-webhook
+spec:
+  type: ClusterIP
+  ports:
+    - port: 443
+      targetPort: https
+      protocol: TCP
+      name: https
+  selector:
+    app: godaddy-webhook
+
+---
+# Source: godaddy-webhook/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: godaddy-webhook
+  namespace: cert-manager
+  labels:
+    app: godaddy-webhook
+spec:
+  replicas: 
+  selector:
+    matchLabels:
+      app: godaddy-webhook
+  template:
+    metadata:
+      labels:
+        app: godaddy-webhook
+    spec:
+      serviceAccountName: godaddy-webhook
+      containers:
+        - name: godaddy-webhook
+          image: pragkent/godaddy-webhook:0.1.0
+          imagePullPolicy: IfNotPresent
+          args:
+            - --tls-cert-file=/tls/tls.crt
+            - --tls-private-key-file=/tls/tls.key
+          env:
+            - name: GROUP_NAME
+              value: "cert-manager.io"
+          ports:
+            - name: https
+              containerPort: 443
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              scheme: HTTPS
+              path: /healthz
+              port: https
+          readinessProbe:
+            httpGet:
+              scheme: HTTPS
+              path: /healthz
+              port: https
+          volumeMounts:
+            - name: certs
+              mountPath: /tls
+              readOnly: true
+          resources:
+            {}
+            
+      volumes:
+        - name: certs
+          secret:
+            secretName: godaddy-webhook-webhook-tls
+
+---
+apiVersion: apiregistration.k8s.io/v1beta1
+kind: APIService
+metadata:
+  name: v1alpha1.cert-manager.io
+  labels:
+    app: godaddy-webhook
+  annotations:
+    cert-manager.io/inject-ca-from: "cert-manager/godaddy-webhook-webhook-tls"
+spec:
+  group: cert-manager.io
+  groupPriorityMinimum: 1000
+  versionPriority: 15
+  service:
+    name: godaddy-webhook
+    namespace: cert-manager
+  version: v1alpha1
+
+---
+# Create a selfsigned Issuer, in order to create a root CA certificate for
+# signing webhook serving certificates
+apiVersion: cert-manager.io/v1alpha2
+kind: Issuer
+metadata:
+  name: godaddy-webhook-selfsign
+  namespace: cert-manager
+  labels:
+    app: godaddy-webhook
+spec:
+  selfSigned: {}
+
+---
+
+# Generate a CA Certificate used to sign certificates for the webhook
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: godaddy-webhook-ca
+  namespace: cert-manager
+  labels:
+    app: godaddy-webhook
+spec:
+  secretName: godaddy-webhook-ca
+  duration: 43800h # 5y
+  issuerRef:
+    name: godaddy-webhook-selfsign
+  commonName: "ca.godaddy-webhook.cert-manager"
+  isCA: true
+
+---
+
+# Create an Issuer that uses the above generated CA certificate to issue certs
+apiVersion: cert-manager.io/v1alpha2
+kind: Issuer
+metadata:
+  name: godaddy-webhook-ca
+  namespace: cert-manager
+  labels:
+    app: godaddy-webhook
+spec:
+  ca:
+    secretName: godaddy-webhook-ca
+
+---
+
+# Finally, generate a serving certificate for the webhook to use
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: godaddy-webhook-webhook-tls
+  namespace: cert-manager
+  labels:
+    app: godaddy-webhook
+spec:
+  secretName: godaddy-webhook-webhook-tls
+  duration: 8760h # 1y
+  issuerRef:
+    name: godaddy-webhook-ca
+  dnsNames:
+  - godaddy-webhook
+  - godaddy-webhook.cert-manager
+  - godaddy-webhook.cert-manager.svc
+  - godaddy-webhook.cert-manager.svc.cluster.local

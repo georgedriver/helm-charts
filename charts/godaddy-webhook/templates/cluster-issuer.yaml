@@ -1,0 +1,27 @@
+---
+
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+  namespace: cert-manager
+spec:
+  acme:
+    # Change to your letsencrypt email
+    email: {{ .Values.email }}
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-prod-account-key
+    solvers:
+    - dns01:
+        webhook:
+          groupName: cert-manager.io
+          solverName: godaddy
+          config:
+            region: ""
+            accessKeySecretRef:
+              name: godaddy-secret
+              key: access-key
+            secretKeySecretRef:
+              name: godaddy-secret
+              key: secret-key
