@@ -129,6 +129,50 @@ subjects:
     namespace: cert-manager
 
 ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: godaddy-webhook:flows-auth
+  namespace: cert-manager
+  labels:
+    app: godaddy-webhook
+rules:
+  - apiGroups:
+      - 'flowcontrol.apiserver.k8s.io'
+    resources:
+      - '*'
+    verbs:
+      - 'get'
+      - 'watch'
+      - 'list'
+  - apiGroups:
+      - 'flowschemas.flowcontrol.apiserver.k8s.io'
+    resources:
+      - '*'
+    verbs:
+      - 'get'
+      - 'watch'
+      - 'list'
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: godaddy-webhook:flows-auth
+  namespace: cert-manager
+  labels:
+    app: godaddy-webhook
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: godaddy-webhook:flows-auth
+subjects:
+  - apiGroup: ""
+    kind: ServiceAccount
+    name: godaddy-webhook
+    namespace: cert-manager
+
+---
 # Source: godaddy-webhook/templates/service.yaml
 apiVersion: v1
 kind: Service
