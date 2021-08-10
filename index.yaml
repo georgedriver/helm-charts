@@ -63,6 +63,24 @@ entries:
   godaddy-webhook:
   - apiVersion: v1
     appVersion: "1.0"
+    created: "2021-08-10T06:05:09.588206614Z"
+    description: Cert-manager ACME DNS webhook provider for godaddy
+    digest: 234f2bcfd1535ca7ac479ee89040ae595aeae785f02848bbe32d2c407bb8ad19
+    home: https://github.com/georgedriver/helm-charts
+    keywords:
+    - godaddy
+    - dns01
+    - certmanager
+    maintainers:
+    - name: George
+    name: godaddy-webhook
+    sources:
+    - https://github.com/georgedriver/helm-charts
+    urls:
+    - https://github.com/georgedriver/helm-charts/releases/download/godaddy-webhook-0.1.4/godaddy-webhook-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v1
+    appVersion: "1.0"
     created: "2021-08-09T14:54:15.794817368Z"
     description: Cert-manager ACME DNS webhook provider for godaddy
     digest: 3c4870471420176bff33604ff4a4bc0961deeac55f23e738f0676f69be5b701f
@@ -287,4 +305,4 @@ entries:
     urls:
     - https://github.com/georgedriver/helm-charts/releases/download/renovate-19.239.11/renovate-19.239.11.tgz
     version: 19.239.11
-generated: "2021-08-09T14:54:15.794860067Z"
+generated: "2021-08-10T06:05:09.588254313Z"
