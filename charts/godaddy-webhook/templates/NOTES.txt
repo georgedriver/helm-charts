@@ -1,9 +1,0 @@
-=========================================================
-# Debug commands
-kubectl get/describe ClusterIssuers
-kubectl get/describe Certificates
-kubectl get/describe CertificateRequest
-
-# Verify
-kubectl describe Certificates test-cert-tls-secret
-=========================================================

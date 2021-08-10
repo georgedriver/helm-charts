@@ -12,3 +12,32 @@ email: "test@test.com"
 godaddy_api_key: ""
 # godaddy_api_secret -- GODADDY_API_SECRET to handle the Godaddy DNS records
 godaddy_api_secret: ""
+
+replicaCount: 1
+
+image:
+  repository: georgedriver/fred78290-cert-manager-godaddy
+  tag: v1.20.5
+  pullPolicy: IfNotPresent
+
+groupName: acme.mycompany.com
+
+certManager:
+  namespace: cert-manager
+  serviceAccountName: cert-manager
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 443
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
