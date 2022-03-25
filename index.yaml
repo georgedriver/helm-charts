@@ -248,6 +248,27 @@ entries:
     urls:
     - https://github.com/georgedriver/helm-charts/releases/download/k8s-pvc-0.1.0/k8s-pvc-0.1.0.tgz
     version: 0.1.0
+  microk8s-kube-metrics:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2022-03-25T18:17:50.132066163Z"
+    description: A Helm chart for Microk8s controller-manager, scheduler and kube-proxy
+      metrics in Prometheus
+    digest: eec73472cad8a98d2284497bc4bc933d5a16b2347b6fea4cae0bd0b34ad2fc68
+    home: https://github.com/georgedriver/helm-charts
+    keywords:
+    - microk8s
+    - prometheus
+    - metrics
+    maintainers:
+    - name: George
+    name: microk8s-kube-metrics
+    sources:
+    - https://github.com/georgedriver/helm-charts
+    type: application
+    urls:
+    - https://github.com/georgedriver/helm-charts/releases/download/microk8s-kube-metrics-0.0.1/microk8s-kube-metrics-0.0.1.tgz
+    version: 0.0.1
   nginx-ingress-docker-for-mac:
   - apiVersion: v1
     appVersion: "1.0"
@@ -305,4 +326,4 @@ entries:
     urls:
     - https://github.com/georgedriver/helm-charts/releases/download/renovate-19.239.11/renovate-19.239.11.tgz
     version: 19.239.11
-generated: "2021-08-10T06:05:09.588254313Z"
+generated: "2022-03-25T18:17:50.132096263Z"
