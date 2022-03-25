@@ -1,0 +1,6 @@
+# Default values for microk8s-kube-metrics.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# name -- The master node IP address which controller-manager, scheduler and kube-proxy are running on
+masterIP: "test"
