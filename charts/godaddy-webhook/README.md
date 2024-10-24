@@ -2,7 +2,7 @@ godaddy-webhook
 ==============
 Cert-manager ACME DNS webhook provider for godaddy
 
-Current chart version is `0.1.4`
+Current chart version is `38.130.3`
 
 Source code can be found [here](https://github.com/georgedriver/helm-charts)
 
