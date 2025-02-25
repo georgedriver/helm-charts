@@ -2,7 +2,7 @@ k8s-alert-receiver
 ==================
 A Helm creates k8s CR for alertmanager recevier (using alert-operator) on k8s
 
-Current chart version is `0.0.1`
+Current chart version is `0.0.4`
 
 Source code can be found [here](https://github.com/georgedriver/helm-charts)
 
